@@ -2,12 +2,17 @@ import './weather.css';
 import Search from './Search';
 import Week from './weekweather';
 import clear from '../image/clear.svg'
+import useWeatherStore from '../weatherStore';
 
 const Weather = () => {
+  const {inputValue, setInputValue} = useWeatherStore
+  const handleSearchChange = (searchValue) => {
+    setInputValue(searchValue);
+  };
   return (
     <section>
       <div className='search-container text-center'>
-        <Search />
+        <Search onSearchChange={handleSearchChange} />
       </div>
       <div className="weather flex evenly align-center">
         <div className="icon">
