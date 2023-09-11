@@ -14,7 +14,7 @@ A simple weather website build with React to help you check the weather conditio
 
 ## Demo
 
-You can checkout a live demo if the Weather App here: [Demo Link](https://weather-leng.vercel.app/)
+You can checkout a live demo if the Weather App here: [Demo Link]()
 
 ## Features
 
