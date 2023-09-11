@@ -1,0 +1,30 @@
+.weather {
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(128, 128, 128, 0.5);
+    padding: 60px; 
+    color: var(--color-black);
+    position: relative;
+}
+img{
+    width: 200px;
+}
+
+
+@media(max-width: 553px){
+    img{
+        width: 100px;
+    }
+    .weather{
+        height: auto;
+        padding: 20px;
+    }
+    .icon{
+        padding: 0;
+    }
+}
+@media(max-width: 371px){
+    .weather p{
+        font-size: var(--paragraphM);
+    }
+}
