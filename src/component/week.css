@@ -1,0 +1,62 @@
+.week{
+    gap: 10px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 100%;
+}
+
+.day{
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    justify-content: center;
+}
+
+.monday p{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+.monday{
+    max-width: 110px;
+    margin: 12px;
+    width: 100%;
+    border-radius: 20px;
+    background-color:#dbdbdb;
+    box-shadow: 0 0 20px rgba(128, 128, 128, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.monday img{
+    width: 50px;
+}
+.upcoming{
+    display: none;
+}
+.Icon{
+    position: relative;
+}
+@media(max-width: 553px){
+    .week{
+        flex-direction: column;
+        top: 120%;
+        height: auto;
+    }
+    .upcoming{
+        display: contents;
+    }
+    .day{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        margin: none;
+        gap: 12px;
+    }
+    .monday{
+        padding: 5px;
+    }
+}
+
