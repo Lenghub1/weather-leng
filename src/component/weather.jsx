@@ -76,6 +76,7 @@ const Weather = () => {
         currentweather = `${url}/weather?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
         polutionweather = `${url}/air_pollution?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
         forecest = `${url}/forecast?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
+       
       } else {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(async function (position) {
