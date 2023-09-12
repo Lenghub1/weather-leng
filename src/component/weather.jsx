@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import rain from '../image/rain.svg';
 import showerrain from '../image/showerrain.svg'
 import storm from '../image/storm.gif';
@@ -9,6 +9,7 @@ import clear from '../image/clear.svg'
 import snow from '../image/snow.svg'
 import mist from '../image/mist.svg'
 import useWeatherStore from '../weatherStore';
+import Loading from './loading';
 import './weather.css';
 import Search from './Search';
 import Week from './weekweather';
@@ -16,7 +17,7 @@ import Week from './weekweather';
 
 const Weather = () => {
   const { apikey, weatherData, inputValue, setInputValue, setWeatherData, url } = useWeatherStore();
-  
+  const [loading, setLoading] = useState(true);
   const handleSearchChange = (searchValue) => {
     setInputValue(searchValue);
   };
@@ -84,11 +85,14 @@ const Weather = () => {
             polutionweather = `${url}/air_pollution?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
             forecest = `${url}/forecast?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
             await fetchWeather(currentweather , polutionweather , forecest);
+            setLoading(false);
           }, function (error) {
             console.error("Error getting geolocation:", error);
+            setLoading(false);
           });
         } else {
           console.error("Geolocation is not available.");
+          setLoading(false);
         }
       }
   
@@ -110,8 +114,8 @@ const Weather = () => {
           stepdata_forecest.push(data_forecest.list[i]);
         }
         setWeatherData({
-          country: data_current.sys.country ,
-          windSpeed: data_current.wind.speed,
+          country: data_current.sys.country,
+          windSpeed: data_current.wind.speed ,
           location: data_current.name,
           temperature: Math.floor(data_current.main.temp),
           main: data_current.weather[0].description,
@@ -137,8 +141,15 @@ const Weather = () => {
   
     fetchWeatherData();
   }, [inputValue, apikey]);
-  
+  if (loading) {
+    return (
+      <div className='loading'>
+        <Loading />
+      </div>
+    );
+  }
   return (
+    
     <section>
       <div className='search-container text-center'>
         <Search onSearchChange={handleSearchChange} />

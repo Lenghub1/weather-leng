@@ -21,7 +21,6 @@ const Search = ({ onSearchChange }) => {
       label: `${city.name}, ${city.country_name}`,
       lat: city.coord.lat,
       lon: city.coord.lon,
-      city: city.name
     }));
 
     return Promise.resolve({

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
+  <style>
+    /* Add the CSS styles here */
+    /* ... (CSS styles) ... */
+  </style>
+  <text x="50%" y="10%" text-anchor="middle" font-size="1.6em">SVG with CSS animations</text>
+  <g class="scene">
+    <circle class="cloud cloud--small" cx="30" cy="60" r="15" />
+    <g class="plane">
+      <path d="M20 36C25 38 69 43 80 40 92 38 106 33 104 21 103 13 95 13 90 9 85 5 79 2 76 1 70-1 65 0 60 2 57 3 25 14 23 13 21 12 12 2 9 3 5 4 1 5 1 6 2 7 15 34 20 36Z" fill="#0085b2"/>
+      <path d="M23 36C28 37 69 43 80 40 88 38 98 34 102 29 82 32 22 36 23 36Z" stroke="none" fill="#14647f"/>
+      <path d="M42 39C48 40 60 40 67 40 71 32 72 26 72 26L44 29C44 29 44 35 42 39Z" stroke="none" fill="#0c3b4d"/>
+      <!-- Add other plane paths here -->
+    </g>
+    <circle class="cloud cloud--medium" cx="150" cy="90" r="25" />
+    <circle class="cloud cloud--large" cx="250" cy="90" r="30" />
+  </g>
+  <text x="50%" y="90%" text-anchor="middle" font-size="1.2em" class="whoami">
+    Done with ♥ by <a href="https://twitter.com/b_lionel" title="follow me on twitter!">@b_lionel</a>
+  </text>
+</svg>
