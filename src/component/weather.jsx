@@ -61,13 +61,20 @@ const Weather = () => {
     else if(polution === 5)
     return 'Very Poor'
   }
+  const getWeekday = (date) => {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayOfWeekIndex = date.getDay();
+    return daysOfWeek[dayOfWeekIndex];
+  };
   useEffect(() => {
     const fetchWeatherData = async () => {
       let currentweather = '';
       let polutionweather = '';
+      let forecest = '';
       if (inputValue !== "") {
         currentweather = `${url}/weather?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
         polutionweather = `${url}/air_pollution?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
+        forecest = `${url}/forecast?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
       } else {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(async function (position) {
@@ -75,7 +82,8 @@ const Weather = () => {
             const lon = position.coords.longitude;
             currentweather = `${url}/weather?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
             polutionweather = `${url}/air_pollution?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
-            await fetchWeather(currentweather , polutionweather);
+            forecest = `${url}/forecast?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
+            await fetchWeather(currentweather , polutionweather , forecest);
           }, function (error) {
             console.error("Error getting geolocation:", error);
           });
@@ -84,20 +92,23 @@ const Weather = () => {
         }
       }
   
-      if (currentweather && polutionweather) {
-        await fetchWeather(currentweather, polutionweather);
+      if (currentweather && polutionweather && forecest) {
+        await fetchWeather(currentweather, polutionweather , forecest);
       }
     };
   
-    async function fetchWeather(currentweather , polutionweather) {
+    async function fetchWeather(currentweather , polutionweather , forecast) {
       try {
         const response = await fetch(currentweather);
         const data_current = await response.json();
         const response_polution = await fetch(polutionweather)
         const data_polution = await response_polution.json()
-        console.log(data_polution)
-        console.log(data_current)
-
+        const response_forecest = await fetch(forecast)
+        const data_forecest = await response_forecest.json()
+        const stepdata_forecest = [];
+        for (let i = 0; i < data_forecest.list.length; i += 8) {
+          stepdata_forecest.push(data_forecest.list[i]);
+        }
         setWeatherData({
           country: data_current.sys.country ,
           windSpeed: data_current.wind.speed,
@@ -106,6 +117,18 @@ const Weather = () => {
           main: data_current.weather[0].description,
           weatherIconCode: data_current.weather[0].icon,
           polution: data_polution.list[0].main.aqi,
+          dt_txt_1: getWeekday(new Date(stepdata_forecest[1].dt_txt)),
+          degree1: Math.floor(stepdata_forecest[1].main.temp),
+          dt_txt_2: getWeekday(new Date(stepdata_forecest[2].dt_txt)),
+          degree2: Math.floor(stepdata_forecest[2].main.temp),
+          dt_txt_3: getWeekday(new Date(stepdata_forecest[3].dt_txt)),
+          degree3: Math.floor(stepdata_forecest[3].main.temp),
+          dt_txt_4: getWeekday(new Date(stepdata_forecest[4].dt_txt)),
+          degree4: Math.floor(stepdata_forecest[4].main.temp),
+          icon1: stepdata_forecest[1].weather[0].icon,
+          icon2: stepdata_forecest[2].weather[0].icon,
+          icon3: stepdata_forecest[3].weather[0].icon,
+          icon4: stepdata_forecest[4].weather[0].icon,
         });
       } catch (error) {
         console.error("Error fetching weather data:", error);
@@ -133,7 +156,30 @@ const Weather = () => {
             <p>{weatherData.main} , {getPolution(weatherData.polution)} </p>
             <p>Wind Speed: {weatherData.windSpeed} m/s</p>
           </div>
-          <Week  />
+          <Week  weatherData={[
+              {
+                dt_txt: weatherData.dt_txt_1,
+                degree: weatherData.degree1,
+                icon: weatherData.icon1
+              },
+              {
+                dt_txt: weatherData.dt_txt_2,
+                degree: weatherData.degree2,
+                icon: weatherData.icon2
+              },
+              {
+                dt_txt: weatherData.dt_txt_3,
+                degree: weatherData.degree3,
+                icon: weatherData.icon3
+              },
+              {
+                dt_txt: weatherData.dt_txt_4,
+                degree: weatherData.degree4,
+                icon: weatherData.icon4
+              }
+            ]}
+            getWeatherIcon={getWeatherIcon}
+            />
         </div>
       </div>
       
