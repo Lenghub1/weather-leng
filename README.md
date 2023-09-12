@@ -79,3 +79,5 @@ Convention guide can be accessed [here](/document/convention-guide.md).
 
 - [UI Prototype](https://www.figma.com/file/n2YhbGxZbWdDZsWz0N0YIR/WeatherApp-TourLeng?type=design&node-id=0%3A1&mode=design&t=HEWIbvS7cMvWGwKO-1)
 - [Flow Guide]()
+## noted :
+About the city_data.json file you can get original from [here](http://bulk.openweathermap.org/sample/) and my city_data.json i got it from kimsang [here](https://github.com/anb-hq/CnD_Mok_Kimsang_Weather/tree/main/src/data). #Thank you ~~
