@@ -45,18 +45,37 @@ const Weather = () => {
       return clear;
     }
   };
+  const getPolution = (polution) => {
+    if ( polution === 1){
+      return 'Good'
+    }
+    else if(polution === 2){
+      return 'Fair'
+    }
+    else if(polution === 3){
+      return 'Moderate'
+    }
+    else if(polution === 4){
+      return 'Poor'
+    }
+    else if(polution === 5)
+    return 'Very Poor'
+  }
   useEffect(() => {
     const fetchWeatherData = async () => {
       let currentweather = '';
+      let polutionweather = '';
       if (inputValue !== "") {
         currentweather = `${url}/weather?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
+        polutionweather = `${url}/air_pollution?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
       } else {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(async function (position) {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             currentweather = `${url}/weather?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
-            await fetchWeather(currentweather);
+            polutionweather = `${url}/air_pollution?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
+            await fetchWeather(currentweather , polutionweather);
           }, function (error) {
             console.error("Error getting geolocation:", error);
           });
@@ -65,15 +84,19 @@ const Weather = () => {
         }
       }
   
-      if (currentweather) {
-        await fetchWeather(currentweather);
+      if (currentweather && polutionweather) {
+        await fetchWeather(currentweather, polutionweather);
       }
     };
   
-    async function fetchWeather(currentweather) {
+    async function fetchWeather(currentweather , polutionweather) {
       try {
         const response = await fetch(currentweather);
         const data_current = await response.json();
+        const response_polution = await fetch(polutionweather)
+        const data_polution = await response_polution.json()
+        console.log(data_polution)
+        console.log(data_current)
 
         setWeatherData({
           country: data_current.sys.country ,
@@ -82,6 +105,7 @@ const Weather = () => {
           temperature: Math.floor(data_current.main.temp),
           main: data_current.weather[0].description,
           weatherIconCode: data_current.weather[0].icon,
+          polution: data_polution.list[0].main.aqi,
         });
       } catch (error) {
         console.error("Error fetching weather data:", error);
@@ -106,7 +130,7 @@ const Weather = () => {
             <p> Today</p>
             <h2><i class="fa-solid fa-location-dot"></i> {weatherData.location} , {weatherData.country}</h2>
             <p>Temperature: {weatherData.temperature}°C</p>
-            <p>{weatherData.main} </p>
+            <p>{weatherData.main} , {getPolution(weatherData.polution)} </p>
             <p>Wind Speed: {weatherData.windSpeed} m/s</p>
           </div>
           <Week  />
