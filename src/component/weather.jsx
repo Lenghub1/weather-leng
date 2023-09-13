@@ -1,11 +1,15 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import rain from '../image/rain.svg';
+import nightrain from '../image/nightrain.svg'
 import showerrain from '../image/showerrain.svg'
-import storm from '../image/storm.gif';
+import storm from '../image/storm.svg';
 import scatter from '../image/scatter.svg';
 import cloudy from '../image/cloudy.svg';
-import clouds from '../image/clouds.gif';
+import nightcloudy from '../image/nightcloudy.svg'
+import clouds from '../image/clouds.svg';
+import nightclouds from '../image/nightclouds.svg'
 import clear from '../image/clear.svg'
+import nightclear from '../image/nightclear.svg'
 import snow from '../image/snow.svg'
 import mist from '../image/mist.svg'
 import useWeatherStore from '../weatherStore';
@@ -14,134 +18,136 @@ import './weather.css';
 import Search from './Search';
 import Week from './weekweather';
 
-
 const Weather = () => {
   const { apikey, weatherData, inputValue, setInputValue, setWeatherData, url } = useWeatherStore();
   const [loading, setLoading] = useState(true);
+
   const handleSearchChange = (searchValue) => {
     setInputValue(searchValue);
   };
-  const getWeatherIcon = (iconCode) => {
+
+  const getWeatherIcon = (iconCode) => ({
+    "01d": clear,
+    "01n": nightclear,
+    "02d": cloudy,
+    "02n": nightcloudy,
+    "03d": scatter,
+    "03n": scatter,
+    "04d": clouds,
+    "04n": nightclouds,
+    "09d": showerrain,
+    "09n": showerrain,
+    "10d": rain,
+    "10n": nightrain,
+    "11d": storm,
+    "11n": storm,
+    "13d": snow,
+    "13n": snow,
+    "50d": mist,
+    "50n": mist,
+  }[iconCode]);
   
-    if (iconCode === "01d" || iconCode === "01n") {
-      return clear;
-    } else if (iconCode === "02d" || iconCode === "02n") {
-      return cloudy;
-    } else if (iconCode === "03d" || iconCode === "03n") {
-      return scatter;
-    } else if (iconCode === "04d" || iconCode === "04n") {
-      return clouds;
-    } else if (iconCode === "09d" || iconCode === "09n") {
-      return showerrain;
-    } else if (iconCode === "10d" || iconCode === "10n") {
-      return rain;
-    } else if (iconCode === "11d" || iconCode === "11n") {
-      return storm;
-    }else if (iconCode === "13d" || iconCode === "13n") {
-      return snow;
-    } else if (iconCode === "50d" || iconCode === "50n") {
-      return mist;
-    }  
-    else {
-      return clear;
-    }
-  };
+
   const getPolution = (polution) => {
-    if ( polution === 1){
+    if (polution === 1) {
       return 'Good'
-    }
-    else if(polution === 2){
+    } else if (polution === 2) {
       return 'Fair'
-    }
-    else if(polution === 3){
+    } else if (polution === 3) {
       return 'Moderate'
-    }
-    else if(polution === 4){
+    } else if (polution === 4) {
       return 'Poor'
-    }
-    else if(polution === 5)
-    return 'Very Poor'
-  }
+    } else if (polution === 5)
+      return 'Very Poor'
+  };
+
   const getWeekday = (date) => {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const dayOfWeekIndex = date.getDay();
     return daysOfWeek[dayOfWeekIndex];
   };
-  useEffect(() => {
-    const fetchWeatherData = async () => {
-      let currentweather = '';
-      let polutionweather = '';
-      let forecest = '';
-      if (inputValue !== "") {
-        currentweather = `${url}/weather?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
-        polutionweather = `${url}/air_pollution?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
-        forecest = `${url}/forecast?lat=${inputValue.lat}&lon=${inputValue.lon}&units=Metric&appid=${apikey}`;
-       
-      } else {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(async function (position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            currentweather = `${url}/weather?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
-            polutionweather = `${url}/air_pollution?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
-            forecest = `${url}/forecast?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
-            await fetchWeather(currentweather , polutionweather , forecest);
-            setLoading(false);
-          }, function (error) {
-            console.error("Error getting geolocation:", error);
-            setLoading(false);
-          });
-        } else {
-          console.error("Geolocation is not available.");
-          setLoading(false);
-        }
+
+  const fetchWeatherData = async (lat, lon) => {
+    const currentweather = `${url}/weather?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
+    const polutionweather = `${url}/air_pollution?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
+    const forecest = `${url}/forecast?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
+
+    try {
+      const [currentResponse, polutionResponse, forecastResponse] = await Promise.all([
+        fetch(currentweather),
+        fetch(polutionweather),
+        fetch(forecest)
+      ]);
+
+      const [currentData, polutionData, forecastData] = await Promise.all([
+        currentResponse.json(),
+        polutionResponse.json(),
+        forecastResponse.json()
+      ]);
+
+      const stepdata_forecest = [];
+      for (let i = 0; i < forecastData.list.length; i += 8) {
+        stepdata_forecest.push(forecastData.list[i]);
       }
-  
-      if (currentweather && polutionweather && forecest) {
-        await fetchWeather(currentweather, polutionweather , forecest);
-      }
-    };
-  
-    async function fetchWeather(currentweather , polutionweather , forecast) {
-      try {
-        const response = await fetch(currentweather);
-        const data_current = await response.json();
-        const response_polution = await fetch(polutionweather)
-        const data_polution = await response_polution.json()
-        const response_forecest = await fetch(forecast)
-        const data_forecest = await response_forecest.json()
-        const stepdata_forecest = [];
-        for (let i = 0; i < data_forecest.list.length; i += 8) {
-          stepdata_forecest.push(data_forecest.list[i]);
-        }
-        setWeatherData({
-          country: data_current.sys.country,
-          windSpeed: data_current.wind.speed ,
-          location: data_current.name,
-          temperature: Math.floor(data_current.main.temp),
-          main: data_current.weather[0].description,
-          weatherIconCode: data_current.weather[0].icon,
-          polution: data_polution.list[0].main.aqi,
-          dt_txt_1: getWeekday(new Date(stepdata_forecest[1].dt_txt)),
-          degree1: Math.floor(stepdata_forecest[1].main.temp),
-          dt_txt_2: getWeekday(new Date(stepdata_forecest[2].dt_txt)),
-          degree2: Math.floor(stepdata_forecest[2].main.temp),
-          dt_txt_3: getWeekday(new Date(stepdata_forecest[3].dt_txt)),
-          degree3: Math.floor(stepdata_forecest[3].main.temp),
-          dt_txt_4: getWeekday(new Date(stepdata_forecest[4].dt_txt)),
-          degree4: Math.floor(stepdata_forecest[4].main.temp),
-          icon1: stepdata_forecest[1].weather[0].icon,
-          icon2: stepdata_forecest[2].weather[0].icon,
-          icon3: stepdata_forecest[3].weather[0].icon,
-          icon4: stepdata_forecest[4].weather[0].icon,
-        });
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      }
+
+      setWeatherData({
+        country: currentData.sys.country,
+        windSpeed: currentData.wind.speed,
+        location: currentData.name,
+        temperature: Math.round(currentData.main.temp),
+        main: currentData.weather[0].description,
+        weatherIconCode: currentData.weather[0].icon,
+        polution: polutionData.list[0].main.aqi,
+        dt_txt_1: getWeekday(new Date(stepdata_forecest[1].dt_txt)),
+        degree1: Math.round(stepdata_forecest[1].main.temp),
+        dt_txt_2: getWeekday(new Date(stepdata_forecest[2].dt_txt)),
+        degree2: Math.round(stepdata_forecest[2].main.temp),
+        dt_txt_3: getWeekday(new Date(stepdata_forecest[3].dt_txt)),
+        degree3: Math.round(stepdata_forecest[3].main.temp),
+        dt_txt_4: getWeekday(new Date(stepdata_forecest[4].dt_txt)),
+        degree4: Math.round(stepdata_forecest[4].main.temp),
+        icon1: stepdata_forecest[1].weather[0].icon,
+        icon2: stepdata_forecest[2].weather[0].icon,
+        icon3: stepdata_forecest[3].weather[0].icon,
+        icon4: stepdata_forecest[4].weather[0].icon,
+      });
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+      setLoading(false);
     }
-  
-    fetchWeatherData();
+  };
+
+  const getCurrentLocation = () => {
+    setLoading(true);
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        fetchWeatherData(lat, lon);
+      }, function (error) {
+        console.error("Error getting geolocation:", error);
+        setLoading(false);
+      });
+    } else {
+      console.error("Geolocation is not available.");
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (inputValue !== "") {
+      const { lat, lon } = inputValue;
+      fetchWeatherData(lat, lon);
+    } else {
+      const defaultLat = 0;
+      const defaultLon = 0;
+      fetchWeatherData(defaultLat, defaultLon);
+    }
+
   }, [inputValue, apikey]);
+
   if (loading) {
     return (
       <div className='loading'>
@@ -155,8 +161,9 @@ const Weather = () => {
       <div className='search-container text-center'>
         <Search onSearchChange={handleSearchChange} />
       </div>
-      
+     
       <div className="weather flex evenly align-center">
+      <button onClick={getCurrentLocation}><i class="fa-solid fa-location-arrow"></i></button>
         <div className="icon">
           <img src={getWeatherIcon(weatherData.weatherIconCode)} alt="Weather Icon" />
         </div>
