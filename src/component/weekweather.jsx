@@ -1,5 +1,5 @@
 import './week.css';
-
+import AnimatedNumber from './AnimatedNumber';
 const Week = ({ weatherData, getWeatherIcon }) => {
   return (
     <div className="week flex text-center justify-center">
@@ -11,7 +11,7 @@ const Week = ({ weatherData, getWeatherIcon }) => {
             <div className="Icon">
               <img src={getWeatherIcon(day.icon)} alt="Weather Icon" />
             </div>
-            <p>{day.degree}°C</p>
+            <p><AnimatedNumber value={day.degree} duration={1000} /></p>
           </div>
         ))}
       </div>

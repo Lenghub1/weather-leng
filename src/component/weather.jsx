@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import rain from '../image/rain.svg';
-import nightrain from '../image/nightrain.svg'
-import showerrain from '../image/showerrain.svg'
-import storm from '../image/storm.svg';
-import scatter from '../image/scatter.svg';
-import cloudy from '../image/cloudy.svg';
-import nightcloudy from '../image/nightcloudy.svg'
-import clouds from '../image/clouds.svg';
-import nightclouds from '../image/nightclouds.svg'
-import clear from '../image/clear.svg'
-import nightclear from '../image/nightclear.svg'
-import snow from '../image/snow.svg'
-import mist from '../image/mist.svg'
 import useWeatherStore from '../weatherStore';
 import Loading from './loading';
 import './weather.css';
 import Search from './Search';
 import Week from './weekweather';
-
+import { weatherIcons, backgroundImages } from './weatherImage';
+import AnimatedNumber from './AnimatedNumber'; 
 const Weather = () => {
   const { apikey, weatherData, inputValue, setInputValue, setWeatherData, url } = useWeatherStore();
   const [loading, setLoading] = useState(true);
@@ -26,28 +14,8 @@ const Weather = () => {
     setInputValue(searchValue);
   };
 
-  const getWeatherIcon = (iconCode) => ({
-    "01d": clear,
-    "01n": nightclear,
-    "02d": cloudy,
-    "02n": nightcloudy,
-    "03d": scatter,
-    "03n": scatter,
-    "04d": clouds,
-    "04n": nightclouds,
-    "09d": showerrain,
-    "09n": showerrain,
-    "10d": rain,
-    "10n": nightrain,
-    "11d": storm,
-    "11n": storm,
-    "13d": snow,
-    "13n": snow,
-    "50d": mist,
-    "50n": mist,
-  }[iconCode]);
-  
-
+  const getWeatherIcon = (iconCode) => weatherIcons[iconCode];
+  const getBackground = (iconCode) => backgroundImages[iconCode];
   const getPolution = (polution) => {
     if (polution === 1) {
       return 'Good'
@@ -148,6 +116,9 @@ const Weather = () => {
 
   }, [inputValue, apikey]);
 
+  const body = document.querySelector('body');
+  body.style.backgroundImage = `url(${getBackground(weatherData.weatherIconCode)})`;
+
   if (loading) {
     return (
       <div className='loading'>
@@ -156,7 +127,6 @@ const Weather = () => {
     );
   }
   return (
-    
     <section>
       <div className='search-container text-center'>
         <Search onSearchChange={handleSearchChange} />
@@ -171,7 +141,8 @@ const Weather = () => {
           <div className="weatherInfo flex flex-col gap">
             <p> Today</p>
             <h2><i class="fa-solid fa-location-dot"></i> {weatherData.location} , {weatherData.country}</h2>
-            <p>Temperature: {weatherData.temperature}°C</p>
+            <div className='flex align-center gap'><p>Temperature :</p>
+            <h3> <AnimatedNumber value={weatherData.temperature} duration={1000} /></h3></div>
             <p>{weatherData.main} , {getPolution(weatherData.polution)} </p>
             <p>Wind Speed: {weatherData.windSpeed} m/s</p>
           </div>
