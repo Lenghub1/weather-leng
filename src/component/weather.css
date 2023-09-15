@@ -10,7 +10,6 @@ img{
     width: 200px;
 }
 
-
 @media(max-width: 553px){
     img{
         width: 100px;
@@ -42,6 +41,14 @@ button{
     top: 15px;
     background-color: transparent;
     border: none;
-    font-size: 30px;
+    font-size: 40px;
     max-width: 50px;
+}
+button:hover{
+    transform: scale(1.1);
+}
+@media(max-width :550px){
+    button{
+        font-size: 30px;
+    }
 }
