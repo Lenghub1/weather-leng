@@ -6,9 +6,7 @@
   - black: black
 
 - Font:
-
   - Font family: `Inter` , sans-serif
-  - City font: `20px`
   - Paragraph font size: `16px`
 
 - No inline CSS
@@ -23,7 +21,16 @@
 |--- public/
 |
 |--- src/
+|
+|    |--- backgroundimage/
+|    |
 |    |--- component/
+|    |
+|    |    |--- AnimatedNumber.jsx
+|    |
+|    |    |--- loading.jsx
+|    |   
+|    |    |--- loading.css
 |    |
 |    |    |--- search.css
 |    |    
@@ -33,11 +40,15 @@
 |    |         
 |    |    |--- weather.jsx
 |    |         
+|    |    |--- WeatherImage.js
+|    |
 |    |    |--- week.css
 |    |  
 |    |    |--- weekweather.jsx
 |    |
-|    | --- image/
+|    |--- data /
+|    |
+|    |--- image/
 |    |
 |--- App.css
 |--- App.jsx
@@ -58,17 +69,21 @@
 # Must follow
  ## Flex:
 
- - `.flex` :  display flex
+ - `flex` :  display flex
 
- - `.flex-col` :  flex-direction column
+ - `flex-col` :  flex-direction column
 
- - `.text-center`:  text-center center
+ - `text-center`:  text-center center
 
- - `.space-between`:  justify-content space-between
+ - `space-between`:  justify-content space-between
 
- - `.justify-center`: justify-content center
- - ` evenly` : justify-content space-evenly
+ - `justify-center`: justify-content center
+ - `evenly` : justify-content space-evenly
 
+## how to use:
+```html
+<div className="weather flex evenly align-center">
+  ```
  ## gap:
  - gap : gap 12px
 
@@ -98,3 +113,11 @@ Follow CamelCase for function and method names
   };
 ```
 # Commnents:
+- Use comments to explain complex logic, especially in functions that have multiple steps.
+- Use // for single line comment.
+```jsx
+// Function to fetch weather data from the API
+  const fetchWeatherData async (lat, lon) => {
+
+  }
+```

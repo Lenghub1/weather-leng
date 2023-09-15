@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useWeatherStore from '../weatherStore';
+import useWeatherStore from '../data/weatherStore';
 import Loading from './loading';
 import './weather.css';
 import Search from './Search';
@@ -34,7 +34,7 @@ const Weather = () => {
     const dayOfWeekIndex = date.getDay();
     return daysOfWeek[dayOfWeekIndex];
   };
-
+  // Function to fetch weather data from the API
   const fetchWeatherData = async (lat, lon) => {
     const currentweather = `${url}/weather?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
     const polutionweather = `${url}/air_pollution?lat=${lat}&lon=${lon}&units=Metric&appid=${apikey}`;
@@ -57,7 +57,7 @@ const Weather = () => {
       for (let i = 0; i < forecastData.list.length; i += 8) {
         stepdata_forecest.push(forecastData.list[i]);
       }
-
+      // Update weather data in the state
       setWeatherData({
         country: currentData.sys.country,
         windSpeed: currentData.wind.speed,
@@ -86,7 +86,7 @@ const Weather = () => {
       setLoading(false);
     }
   };
-
+  // Function to get the user's current location and fetch weather data
   const getCurrentLocation = () => {
     setLoading(true);
     if ("geolocation" in navigator) {
@@ -103,7 +103,7 @@ const Weather = () => {
       setLoading(false);
     }
   };
-
+  // useEffect to fetch weather data when the inputValue or apikey changes
   useEffect(() => {
     if (inputValue !== "") {
       const { lat, lon } = inputValue;
@@ -133,7 +133,7 @@ const Weather = () => {
       </div>
      
       <div className="weather flex evenly align-center">
-      <button onClick={getCurrentLocation}><i class="fa-solid fa-location-arrow"></i></button>
+        <button onClick={getCurrentLocation}><i class="fa-regular fa-compass"></i></button>
         <div className="icon">
           <img src={getWeatherIcon(weatherData.weatherIconCode)} alt="Weather Icon" />
         </div>

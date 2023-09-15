@@ -15,6 +15,7 @@ import sunny from '../backgroundimage/sunny.gif';
 import cloudys from '../backgroundimage/cloudy.gif';
 import rainny from '../backgroundimage/rainny.gif';
 import snowy from '../backgroundimage/snow.gif'
+import background from '../backgroundimage/background.jpeg'
 
 const weatherIcons = {
   "01d": clear,
@@ -54,6 +55,8 @@ const backgroundImages = {
   "11n": rainny,
   "13d": snowy,
   "13n": snowy,
+  "50d": background,//default background
+  "50n": background,
 };
 
 export { weatherIcons, backgroundImages };

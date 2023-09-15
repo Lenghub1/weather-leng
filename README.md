@@ -18,9 +18,13 @@ You can checkout a live demo if the Weather App here: [Demo Link]()
 
 ## Features
 
-- `Weather Current location`: Get the current location from user and display user location weather information that have `location of city , temperature , condition , polution and wind speed`.
+- `Weather Current location`: Get the current location from user by click on ![location icon](/src/assets/location.png) 
+and display user location weather information that have `location of city , temperature , condition , polution and wind speed`.
 -  `Search dropdown`: search for weather data by enter a city name and it display dropdown the city name and country name `example` : enter `seoul` the dropdown will display `Seoul,Korea,Republic of` and when click on city name the screen will change data from current location into data weather of city that you entered.
-- `weather forecest`:  display next 4days of weather data
+- `Weather forecest`:  display next 4days of weather data
+- `Icon by condition`: display different icon by condition of weather (if weather rain icon change to rain icon) 
+- `Background by condition`
+- `AnimateNumber display`
 - `Responsive Design`: The website is designed to work on both desktop and mobile devices.
 
 ## Installation 
@@ -67,7 +71,7 @@ Local:   http://localhost:5175/
 ## Technologies
 - React
 - CSS (Cascading Style Sheets)
-- [OpenWeatherAPI](https://openweathermap.org/api)
+- [OpenWeatherAPI](https://openweathermap.org/api) : [ForecestAPI](https://openweathermap.org/forecast5) , [CurrentAPI](https://openweathermap.org/current) , [PolutionAPI](https://openweathermap.org/api/air-pollution)
 - [Vercel(desploy)](https://vercel.com/new)
 - [AsyncPaginate (dropdown search)](https://www.npmjs.com/package/react-select-async-paginate)
 - Zustand
