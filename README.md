@@ -14,11 +14,11 @@ A simple weather website build with React to help you check the weather conditio
 
 ## Demo
 
-You can checkout a live demo if the Weather App here: [Demo Link]()
+You can checkout a live demo if the Weather App here: [Demo Link](https://weather-tourleng.vercel.app/)
 
 ## Features
 
-- `Weather Current location`: Get the current location from user by click on ![location icon](/src/assets/location.png) 
+- `Weather Current location`: Get the current location from user by click on compass button 
 and display user location weather information that have `location of city , temperature , condition , polution and wind speed`.
 -  `Search dropdown`: search for weather data by enter a city name and it display dropdown the city name and country name `example` : enter `seoul` the dropdown will display `Seoul,Korea,Republic of` and when click on city name the screen will change data from current location into data weather of city that you entered.
 - `Weather forecest`:  display next 4days of weather data
