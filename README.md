@@ -1,6 +1,6 @@
 # Weather App
 
-A simple weather website build with React to help you check the weather condition for different locations.
+A simple weather website build with React to help you check the weather condition for your location and different locations.
 
 ## Contents
 
@@ -18,14 +18,13 @@ You can checkout a live demo if the Weather App here: [Demo Link](https://weathe
 
 ## Features
 
-- `Weather Current location`: Get the current location from user by click on compass button 
-and display user location weather information that have `location of city , temperature , condition , polution and wind speed`.
--  `Search dropdown`: search for weather data by enter a city name and it display dropdown the city name and country name `example` : enter `seoul` the dropdown will display `Seoul,Korea,Republic of` and when click on city name the screen will change data from current location into data weather of city that you entered.
-- `Weather forecest`:  display next 4days of weather data
-- `Icon by condition`: display different icon by condition of weather (if weather rain icon change to rain icon) 
+- `Weather Current location`
+- `Search dropdown`
+- `Weather forecest`(display next 4days of weather data)
+- `Icon by condition`(display different icon by condition of weather )
 - `Background by condition`
 - `AnimateNumber display`
-- `Responsive Design`: The website is designed to work on both desktop and mobile devices.
+- `Responsive Design`( desktop and mobile devices)
 
 ## Installation 
 
@@ -66,7 +65,7 @@ Local:   http://localhost:5175/
 ```
 2. Open your web browser and go to `http://localhost:5175/` to access the Weather App
 
-3. if the website wants your location if you want to see your current location just click allow if not click not, after you click allow the website will display the current weather data in your current location. if you want to get another city data just click search and enter a city that you want to see.
+3. By default, the website displays weather information for the location with latitude 0 and longitude 0. If you want to see the weather for your current location, simply click on the compass button and allow the website to access your location. If you do not allow access, the website will continue to display the default location. To view weather information for a different location, click on the search bar and search the name of the city you are interested in. Once you select the city, the website will display weather information for that location.
 
 ## Technologies
 - React
