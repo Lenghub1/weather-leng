@@ -83,4 +83,7 @@ Convention guide can be accessed [here](/document/convention-guide.md).
 - [UI Prototype](https://www.figma.com/file/n2YhbGxZbWdDZsWz0N0YIR/WeatherApp-TourLeng?type=design&node-id=0%3A1&mode=design&t=HEWIbvS7cMvWGwKO-1)
 - [Flow Guide](https://zpl.io/p1D7eMJ)
 ## noted :
-About the city_data.json file, you can get the original from [here](http://bulk.openweathermap.org/sample/) and my city_data.json I got it from kimsang [here](https://github.com/anb-hq/CnD_Mok_Kimsang_Weather/tree/main/src/data). #Thank you ~~
+- Plane flying I got it from internet (sorry I forgot the link ) ~~
+- About background I use Photoleap to make ~~ (Photoleap is a photo editing app that uses AI to offer advanced features such as creating new worlds with AI scenes, transforming photos into artwork and generating digital art.)
+- AnimateNumber inspired by moonlight ~~
+- About the city_data.json file, you can get the original from [here](http://bulk.openweathermap.org/sample/) and my city_data.json I got it from kimsang [here](https://github.com/anb-hq/CnD_Mok_Kimsang_Weather/tree/main/src/data). #Thank you ~~
