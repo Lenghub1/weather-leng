@@ -18,7 +18,10 @@ const Search = ({ onSearchChange }) => {
 
     const options = filteredCities.map((city) => ({
       value: `${city.coord.lat} ${city.coord.lon}`,
-      label: `${city.name}, ${city.country_name}`,
+      label: (<div>
+       <div>{city.name}</div>
+       <div className="citycountry">{city.country_name}</div>
+      </div>),
       lat: city.coord.lat,
       lon: city.coord.lon,
     }));
