@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import useWeatherStore from '../data/weatherStore';
 import Loading from './loading';
 import './weather.css';
-import Search from './Search';
+import Search from './search';
 import Week from './weekweather';
 import { weatherIcons, backgroundImages } from './weatherImage';
 import AnimatedNumber from './AnimatedNumber'; 
 const Weather = () => {
-  const { apikey, weatherData, inputValue, setInputValue, setWeatherData, url } = useWeatherStore();
-  const [loading, setLoading] = useState(true);
+  const { apikey, weatherData, inputValue, setInputValue, setWeatherData, url,loading,setLoading } = useWeatherStore();
 
   const handleSearchChange = (searchValue) => {
     setInputValue(searchValue);
