@@ -15,6 +15,7 @@ const Weather = () => {
 
   const getWeatherIcon = (iconCode) => weatherIcons[iconCode];
   const getBackground = (iconCode) => backgroundImages[iconCode];
+  
   const getPolution = (polution) => {
     if (polution === 1) {
       return 'Good'
@@ -94,6 +95,7 @@ const Weather = () => {
         const lon = position.coords.longitude;
         fetchWeatherData(lat, lon);
       }, function (error) {
+        alert('Please turn-on your location', error)
         console.error("Error getting geolocation:", error);
         setLoading(false);
       });

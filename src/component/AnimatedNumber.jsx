@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import useWeatherStore from '../data/weatherStore';
 
 const AnimatedNumber = ({ value, duration }) => {
-  const [displayValue, setDisplayValue] = useState(0);
+  const { displayValue, setDisplayValue } = useWeatherStore()
 
   useEffect(() => {
     let startTimestamp;

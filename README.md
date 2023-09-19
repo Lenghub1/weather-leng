@@ -11,6 +11,8 @@ A simple weather website build with React to help you check the weather conditio
 - [Usage](#usage)
 - [Document](#document)
 - [Convention Guide](#convention)
+- [Learn](#learn)
+- [Noted](#noted)
 
 ## Demo
 
@@ -37,7 +39,7 @@ git clone https://github.com/Lenghub1/weather1.0.git
 
 cd weather1.0
 
-npm i
+npm install
 
 npm install react-select-async-paginate
 
@@ -79,9 +81,14 @@ Local:   http://localhost:5175/
 Convention guide can be accessed [here](/document/convention-guide.md).
 
 ## Document
-
 - [UI Prototype](https://www.figma.com/file/n2YhbGxZbWdDZsWz0N0YIR/WeatherApp-TourLeng?type=design&node-id=0%3A1&mode=design&t=HEWIbvS7cMvWGwKO-1)
 - [Flow Guide](https://zpl.io/p1D7eMJ)
+## Learn:
+- I learned how to call API to use in website
+- Handling error using try catch : when the API data retrieval fails, is crucial to provide a good user experience.
+- Learn how to use state management : store the state(zustand)
+- Learn how to host json on git because I got issued on iphone device.
+
 ## noted :
 - Plane flying I got it from the internet (sorry I forgot the link ) ~~
 - About background I use Photoleap to make ~~ (Photoleap is a photo editing app that uses AI to offer advanced features such as creating new worlds with AI scenes, transforming photos into artwork, and generating digital art.)
