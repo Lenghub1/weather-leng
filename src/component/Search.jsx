@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import './search.css';
-import cityList from '../data/city_data.json'; 
-
+import useWeatherStore from "../data/weatherStore";
 const Search = ({ onSearchChange }) => {
-  const [search, setSearch] = useState(null);
+  const { setCityList,search,setSearch,cityList } = useWeatherStore();
+
+  useEffect(() => {
+    // Fetch data from My git URL api
+    fetch("https://lenghub1.github.io/city_json/cityname_data.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setCityList(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   const loadOptions = (inputValue) => {
-    
     if (inputValue.length < 3) {
-      return Promise.resolve({ options: [] }); 
+      return Promise.resolve({ options: [] });
     }
 
     const filteredCities = cityList.filter((city) =>
@@ -18,14 +28,19 @@ const Search = ({ onSearchChange }) => {
 
     const options = filteredCities.map((city) => ({
       value: `${city.coord.lat} ${city.coord.lon}`,
-      label: `${city.name}, ${city.country_name}`,
+      label: (
+        <div>
+          <div>{city.name}</div>
+          <div className="citycountry">{city.country_name}</div>
+        </div>
+      ),
       lat: city.coord.lat,
       lon: city.coord.lon,
     }));
 
     return Promise.resolve({
       options,
-      hasMore: false, 
+      hasMore: false,
     });
   };
 

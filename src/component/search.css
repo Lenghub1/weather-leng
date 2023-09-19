@@ -6,6 +6,10 @@
     max-width: 400px;
     margin: 12px auto;
   }
+  .citycountry{
+    font-size: 14px;
+    color: grey;
+  }
   @media(max-width:553px){
     .css-b62m3t-container{
       max-width: 220px;

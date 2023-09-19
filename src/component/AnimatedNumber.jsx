@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 const AnimatedNumber = ({ value, duration }) => {
-  const [displayValue, setDisplayValue] = useState(0);
+
+  const [displayValue,setDisplayValue] = useState(0)
 
   useEffect(() => {
     let startTimestamp;
