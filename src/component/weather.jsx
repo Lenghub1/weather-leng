@@ -2,7 +2,7 @@ import React, {useEffect } from 'react';
 import useWeatherStore from '../data/weatherStore';
 import Loading from './loading';
 import './weather.css';
-import Search from './search';
+import Search from './Search';
 import Week from './weekweather';
 import { weatherIcons, backgroundImages } from './weatherImage';
 import AnimatedNumber from './AnimatedNumber'; 
@@ -15,7 +15,7 @@ const Weather = () => {
 
   const getWeatherIcon = (iconCode) => weatherIcons[iconCode];
   const getBackground = (iconCode) => backgroundImages[iconCode];
-  
+
   const getPolution = (polution) => {
     if (polution === 1) {
       return 'Good'
