@@ -28,6 +28,8 @@ const useWeatherStore = create((set) => ({
   loading: true, 
   search: null,
   cityList: [],
+  displayValue: 0,
+  setDisplayValue: (value) => set({ displayValue: value }),
   setInputValue: (searchValue) => set({ inputValue: searchValue }),
   setWeatherData: (data) => set({ weatherData: data }),
   setSearch: (searchData) => set({ search: searchData }),
